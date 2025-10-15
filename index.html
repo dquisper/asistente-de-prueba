@@ -211,11 +211,13 @@
         }
         
         async function callGeminiAPI(userQuery) {
-            // VITAL: Reemplaza la siguiente cadena vacía con tu propia API Key de Google AI Studio.
-            // ¡ADVERTENCIA! No compartas este código en un repositorio público de GitHub con tu clave visible.
+            // =================================================================================
+            // PASO VITAL: Reemplaza el texto de abajo con tu propia API Key de Google AI Studio.
+            // =================================================================================
             const apiKey = "AIzaSyCUTZz-2faNAXy7kLR1KJI7vO_leADiNNU";
+            // =================================================================================
             
-            if (apiKey === "AIzaSyCUTZz-2faNAXy7kLR1KJI7vO_leADiNNU" || apiKey === "AIzaSyCUTZz-2faNAXy7kLR1KJI7vO_leADiNNU") {
+            if (apiKey === "AIzaSyCUTZz-2faNAXy7kLR1KJI7vO_leADiNNU" || apiKey === "") {
                 throw new Error("API Key no configurada.");
             }
 
