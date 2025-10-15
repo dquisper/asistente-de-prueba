@@ -211,15 +211,10 @@
         }
         
         async function callGeminiAPI(userQuery) {
-            // =================================================================================
-            // PASO VITAL: Reemplaza el texto de abajo con tu propia API Key de Google AI Studio.
-            // =================================================================================
-            const apiKey = "AIzaSyCUTZz-2faNAXy7kLR1KJI7vO_leADiNNU";
-            // =================================================================================
+            // Pega tu clave de API de Google AI Studio aquí.
+            const apiKey = "AIzaSyCUTZz-2faNAXy7kLR1KJI7v0_1eADINNU";
             
-            if (apiKey === "AIzaSyCUTZz-2faNAXy7kLR1KJI7vO_leADiNNU" || apiKey === "") {
-                throw new Error("API Key no configurada.");
-            }
+            // Esta verificación ahora está eliminada, ya que la clave está directamente arriba.
 
             const systemPrompt = `Eres "Inti", un asistente virtual experto de Concytec (Consejo Nacional de Ciencia, Tecnología e Innovación Tecnológica del Perú). Tu rol es guiar a profesionales y estudiantes peruanos en su camino hacia la investigación científica y tecnológica. Tu tono debe ser profesional, amigable, proactivo y motivador. Tu misión es resolver dudas, conectar a los usuarios con oportunidades y recursos, y fomentar el desarrollo de la ciencia en el Perú. Debes ser claro, conciso y siempre dispuesto a ayudar. Basa tus respuestas en la información más reciente disponible en la web. Responde en español.`;
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
@@ -248,7 +243,11 @@
                         if (candidate && candidate.content?.parts?.[0]?.text) {
                             return candidate.content.parts[0].text;
                         } else {
-                            throw new Error("Respuesta de la API inválida.");
+                             // Si no hay texto, podría ser un bloqueo de seguridad.
+                             if (candidate && candidate.finishReason === 'SAFETY') {
+                                return "No puedo responder a esa pregunta porque infringe las políticas de seguridad.";
+                            }
+                            throw new Error("Respuesta de la API inválida o vacía.");
                         }
                     } else if (response.status >= 500) {
                          throw new Error(`Error del servidor: ${response.status}`);
